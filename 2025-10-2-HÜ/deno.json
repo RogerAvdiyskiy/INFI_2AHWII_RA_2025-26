@@ -4,6 +4,8 @@
     },
     "imports": {
         "@std/assert": "jsr:@std/assert@1",
-        "@types/node": "npm:@types/node@^24.6.2"
+        "@types/node": "npm:@types/node@^24.6.2",
+        "sqlite_kraken/": "https://deno.land/x/sqlite@v3.9.1/"
+
     }
 }
