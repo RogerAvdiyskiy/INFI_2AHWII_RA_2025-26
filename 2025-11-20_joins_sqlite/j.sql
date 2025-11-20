@@ -1,0 +1,1 @@
+select a.id , b.id  from numbers a inner join numbers b on a.id = b.id + 2 where a.id between 100000 and 200000;
