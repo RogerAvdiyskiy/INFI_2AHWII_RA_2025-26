@@ -1,0 +1,1 @@
+select person.name, essen.essen from person join essen on person.lieblingsessen = essen.id order by person.name asc;
