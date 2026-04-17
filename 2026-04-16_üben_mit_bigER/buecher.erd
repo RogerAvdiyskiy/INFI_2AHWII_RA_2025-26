@@ -1,57 +1,57 @@
 erdiagram Bibliothek
 
-notation=crowsfoot
-
-entity mitarbeiter {
-    id_mitarbeiter key
-    vorname varchar(50) not null
-    nachname varchar(50) not null
-    email varchar(100) unique not null
-    telefon varchar(20)
-    einstellungsdatum date not null
+entity Mitarbeiter {
+    id_mitarbeiter: INT key
+    vorname: VARCHAR(50)
+    nachname: VARCHAR(50)
+    email: VARCHAR(100)
+    telefon: VARCHAR(20)
+    einstellungsdatum: DATE
 }
 
-entity leser {
-    id_leser key
-    name varchar(100) not null
-    email varchar(100) unique not null
-    mitglied_seit date not null
+entity Leser {
+    id_leser: INT key
+    name: VARCHAR(100)
+    email: VARCHAR(100)
+    mitglied_seit: DATE
 }
 
-entity buch {
-    id_buch key
-    isbn varchar(20) unique not null
-    titel varchar(255) not null
-    autor varchar(255) not null
-    verlag varchar(100)
-    erscheinungsjahr integer
+entity Buch {
+    id_buch: INT key
+    isbn: VARCHAR(20)
+    titel: VARCHAR(255)
+    autor: VARCHAR(255)
+    verlag: VARCHAR(100)
+    erscheinungsjahr: INT
 }
 
-entity exemplar {
-    id_exemplar key
-    inventarnummer varchar(50) unique not null
-    standort varchar(100) not null
-    zustand varchar(50)
-    kaufdatum date
-    buch_id_fk -> buch id_buch not null
+entity Exemplar {
+    id_exemplar: INT key
+    inventarnummer: VARCHAR(50)
+    standort: VARCHAR(100)
+    zustand: VARCHAR(50)
+    kaufdatum: DATE
 }
 
-entity ausleihe {
-    id_ausleihe key
-    ausleihdatum date not null
-    rueckgabedatum date
-    faelligkeitsdatum date not null
-    leser_id_fk -> leser id_leser not null
-    exemplar_id_fk -> exemplar id_exemplar not null
-    mitarbeiter_id_fk -> mitarbeiter id_mitarbeiter not null
+entity Ausleihe {
+    id_ausleihe: INT key
+    ausleihdatum: DATE
+    rueckgabedatum: DATE
+    faelligkeitsdatum: DATE
 }
 
-relationship leiht_aus {
-    leser "0..*" -> "1..1" ausleihe
-    exemplar "1..1" -> "0..*" ausleihe
-    mitarbeiter "1..1" -> "0..*" ausleihe
+relationship hat {
+    Exemplar[N] -> Buch[1]
 }
 
-relationship gehoert_zu {
-    exemplar "0..*" -> "1..1" buch
+relationship ausgeliehenVon {
+    Ausleihe[N] -> Leser[1]
+}
+
+relationship wirdAusgeliehen {
+    Ausleihe[N] -> Exemplar[1]
+}
+
+relationship wirdBetreutVon {
+    Ausleihe[N] -> Mitarbeiter[1]
 }
