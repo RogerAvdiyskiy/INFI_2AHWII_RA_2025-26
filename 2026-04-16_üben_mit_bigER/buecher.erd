@@ -1,5 +1,7 @@
 erdiagram Bibliothek
 
+notation=crowsfoot
+
 entity Mitarbeiter {
     id_mitarbeiter: INT key
     vorname: VARCHAR(50)
@@ -25,7 +27,7 @@ entity Buch {
     erscheinungsjahr: INT
 }
 
-entity Exemplar {
+entity Exemplare {
     id_exemplar: INT key
     inventarnummer: VARCHAR(50)
     standort: VARCHAR(100)
@@ -33,25 +35,19 @@ entity Exemplar {
     kaufdatum: DATE
 }
 
-entity Ausleihe {
+relationship hat {
+    Exemplare[N] -> Buch[1]
+    id_buch: INT key
+    id_exemplar: INT key
+
+}
+
+relationship Ausleihe {
+
+    Exemplare[N] -> Leser[N] -> Mitarbeiter[N]
     id_ausleihe: INT key
     ausleihdatum: DATE
     rueckgabedatum: DATE
     faelligkeitsdatum: DATE
-}
 
-relationship hat {
-    Exemplar[N] -> Buch[1]
-}
-
-relationship ausgeliehenVon {
-    Ausleihe[N] -> Leser[1]
-}
-
-relationship wirdAusgeliehen {
-    Ausleihe[N] -> Exemplar[1]
-}
-
-relationship wirdBetreutVon {
-    Ausleihe[N] -> Mitarbeiter[1]
 }
